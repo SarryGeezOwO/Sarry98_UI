@@ -1,7 +1,9 @@
 package com.example;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.Box;
 import javax.swing.JLabel;
@@ -14,24 +16,26 @@ import com.example.components.*;
 public class Launcher extends WindowFrame{
 
     public Launcher() {
-        super("NotaCaudex", new Vector2(600, 700), FrameState.CLOSED, true);
+        super("SarryG_98 Components", new Vector2(400, 150), FrameState.CLOSED, true);
 
-        JLabel labelBtn = new JLabel("Example of Button");
-        TextButton btn = new TextButton("Sample");
+        JLabel labelBtn = new JLabel("Hello world!", JLabel.CENTER);
+        labelBtn.setFont(textFont.deriveFont(Font.PLAIN, 18f));
+        labelBtn.setForeground(Color.BLACK);
 
-        JLabel labelBtnDisable = new JLabel("Example of Disabled Button");
-        TextButton btn2 = new TextButton("Hello...");
-        btn2.setEnabled(false);
+        JPanel bot = new JPanel();
+        bot.setOpaque(false);
+        TextButton btn = new TextButton("Okay");
+        TextButton btn2 = new TextButton("Cancel");
 
         JPanel p = new JPanel();
+        p.setLayout(new BorderLayout());
+        bot.add(btn);
+        bot.add(btn2);
         p.setBorder(new EmptyBorder(20, 20, 20, 20));
         p.setOpaque(false);
 
-        p.add(labelBtn);
-        p.add(btn);
-        p.add(Box.createRigidArea(new Dimension(500, 30)));
-        p.add(labelBtnDisable);
-        p.add(btn2);
+        p.add(labelBtn, BorderLayout.CENTER);
+        p.add(bot, BorderLayout.SOUTH);
         mainPanel.add(p, BorderLayout.CENTER);
         setVisible(true);
     }
