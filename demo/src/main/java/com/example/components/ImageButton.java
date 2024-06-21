@@ -8,8 +8,6 @@ import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.*;
 
-import com.example.WindowFrame;
-
 public class ImageButton extends JButton {
 
     public ImageButton(ImageIcon icn) {
@@ -18,11 +16,19 @@ public class ImageButton extends JButton {
         initUI();
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        g.setColor(getBackground());
+        g.fillRect(0, 0, getWidth(), getHeight());
+        super.paintComponent(g);
+    }
+
     private void initUI() {
-        setBackground(new Color(170, 170, 180));
+        setBackground(new Color(195, 195, 195));
         setForeground(Color.BLACK);
         setFocusPainted(false);
-        setFont(WindowFrame.textFont.deriveFont(Font.PLAIN, 16f));
+        setContentAreaFilled(false);
+
 
         Color highlight = Color.LIGHT_GRAY;
         Color accentlight = Color.WHITE;
@@ -30,8 +36,8 @@ public class ImageButton extends JButton {
         Color shadow = Color.BLACK;
         setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createCompoundBorder(
-                BorderFactory.createBevelBorder(BevelBorder.RAISED, highlight, shadow),
-                BorderFactory.createBevelBorder(BevelBorder.RAISED, accentlight, accentShadow)
+                BorderFactory.createBevelBorder(BevelBorder.RAISED, accentlight, shadow),
+                BorderFactory.createBevelBorder(BevelBorder.RAISED, highlight, accentShadow)
             ),
             BorderFactory.createEmptyBorder(2, 2, 2, 2)
         ));
@@ -43,8 +49,8 @@ public class ImageButton extends JButton {
                 if(isEnabled()) {
                     setBorder(BorderFactory.createCompoundBorder(
                         BorderFactory.createCompoundBorder(
-                            BorderFactory.createBevelBorder(BevelBorder.LOWERED, highlight, shadow),
-                            BorderFactory.createBevelBorder(BevelBorder.LOWERED, accentlight, accentShadow)
+                            BorderFactory.createBevelBorder(BevelBorder.LOWERED, accentlight, shadow),
+                            BorderFactory.createBevelBorder(BevelBorder.LOWERED, highlight, accentShadow)
                         ),
                         BorderFactory.createEmptyBorder(2, 2, 2, 2)
                     ));
@@ -56,8 +62,8 @@ public class ImageButton extends JButton {
                 if(isEnabled()) {
                     setBorder(BorderFactory.createCompoundBorder(
                         BorderFactory.createCompoundBorder(
-                            BorderFactory.createBevelBorder(BevelBorder.RAISED, highlight, shadow),
-                            BorderFactory.createBevelBorder(BevelBorder.RAISED, accentlight, accentShadow)
+                            BorderFactory.createBevelBorder(BevelBorder.RAISED, accentlight, shadow),
+                            BorderFactory.createBevelBorder(BevelBorder.RAISED, highlight, accentShadow)
                         ),
                         BorderFactory.createEmptyBorder(2, 2, 2, 2)
                     ));

@@ -1,21 +1,18 @@
-package com.example;
+package com.example.components;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
 
-import com.example.components.ImageButton;
+import com.example.AssetHandler;
+import com.example.ComponentResizer;
+import com.example.Vector2;
 
 public class WindowFrame extends JFrame {
 
@@ -27,11 +24,12 @@ public class WindowFrame extends JFrame {
     private ImageIcon maximizedIcon;
     private ImageIcon minimizedIcon;
     private ImageIcon hideIcon;
+    private ImageIcon appIcon;
 
     private FrameState state;
     private boolean isFullScreen = false;
 
-    private Color backgroundCol = new Color(170, 170, 180);
+    private final Color backgroundCol = new Color(195, 195, 195);
 
     public static String frameName;
     public static Font defaultFont;
@@ -56,17 +54,20 @@ public class WindowFrame extends JFrame {
         maximizedIcon = handler.resizeIcon("/images/maximized.png", new Vector2(10, 10));
         minimizedIcon = handler.resizeIcon("/images/minimized.png", new Vector2(10, 10));
         hideIcon = handler.resizeIcon("/images/hide.png", new Vector2(10, 10));
+        appIcon = handler.resizeIcon("/images/document.png", new Vector2(18, 18));
+
         defaultFont = handler.loadFont("/fonts/Modeseven.ttf");
         textFont = handler.loadFont("/fonts/Windows Regular.ttf");
     }   
 
-    public WindowFrame(String title, String displayTitle, Vector2 size, FrameState state, boolean resizable) {
+    public WindowFrame(String title, String displayTitle, Vector2 size, FrameState state, boolean resizable, ImageIcon appIcon) {
         this.resisable = resizable;
         this.state = state;
         frameName = title;
         initAssets();
         initFrame(displayTitle, size);
         setTitle(title);
+        this.appIcon = appIcon;
     }
 
     public WindowFrame(String title, Vector2 size, FrameState state, boolean resizable) {
@@ -88,7 +89,7 @@ public class WindowFrame extends JFrame {
     }
 
     private void initFrame(String title, Vector2 size) {
-        setSize(size.x, size.y + 25);   // +25 for titlebar
+        setSize(size.x, size.y + 22);   // +25 for titlebar
         setLocationRelativeTo(null);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -116,53 +117,35 @@ public class WindowFrame extends JFrame {
     }
 
     public JPanel createTitlebar(String title, Vector2 size) {
-        JPanel p = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2d = (Graphics2D) g;
-                g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-                int w = getWidth(), h = getHeight();
-                Color color1 = new Color(0, 0, 150);
-                Color color2 = new Color(40, 80, 255);
-                GradientPaint gp = new GradientPaint(w/4, 0, color1, w, h, color2);
-                g2d.setPaint(gp);
-                g2d.fillRect(0, 0, w, h);
-            }
-        };
+        JPanel p = createGradientPanel();
 
-        p.setPreferredSize(new Dimension(1, 30));
-        p.setLayout(new FlowLayout(FlowLayout.TRAILING, 5, 3));
+        JLabel icon = new JLabel();
+        icon.setIcon(appIcon);
+        icon.setBorder(new EmptyBorder(0, 0, 0, 3));
 
-        JLabel titleLabel = new JLabel(title, JLabel.LEFT);
+        JLabel titleLabel = new JLabel(title);
+        titleLabel.setHorizontalAlignment(JLabel.LEFT);
+        titleLabel.setVerticalAlignment(JLabel.CENTER);
         titleLabel.setForeground(Color.WHITE);
-        titleLabel.setFont(defaultFont.deriveFont(Font.PLAIN, 16f));
-        titleLabel.setPreferredSize(new Dimension((resisable) ? (getWidth()-100) : (getWidth()-75), 25));
+        titleLabel.setFont(textFont.deriveFont(Font.BOLD, 16f));
+        titleLabel.setPreferredSize(new Dimension((resisable) ? (getWidth()-105) : (getWidth()-85), 25));
+        titleLabel.setBorder(new EmptyBorder(3, 0, 0, 0));
 
         ImageButton close = new ImageButton(closeIcon);
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(state.equals(FrameState.CLOSED)) System.exit(0);
-                else dispose();
-            }
+        close.addActionListener(e -> {
+            if(state.equals(FrameState.CLOSED)) System.exit(0);
+            else dispose();
         });
+
         ImageButton minMax = new ImageButton(maximizedIcon);
-        minMax.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                isFullScreen = !isFullScreen;
-                setExtendedState((isFullScreen) ? JFrame.MAXIMIZED_BOTH : JFrame.NORMAL);
-                minMax.setIcon((isFullScreen) ? minimizedIcon : maximizedIcon);
-            }
+        minMax.addActionListener(e -> {
+            isFullScreen = !isFullScreen;
+            setExtendedState((isFullScreen) ? JFrame.MAXIMIZED_BOTH : JFrame.NORMAL);
+            minMax.setIcon((isFullScreen) ? minimizedIcon : maximizedIcon);
         });
+
         ImageButton hide = new ImageButton(hideIcon);
-        hide.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setExtendedState(JFrame.ICONIFIED);
-            }
-        });
+        hide.addActionListener(e -> setExtendedState(JFrame.ICONIFIED));
 
         p.addMouseMotionListener(new MouseAdapter() {
             @Override
@@ -178,9 +161,9 @@ public class WindowFrame extends JFrame {
                         minMax.setIcon(maximizedIcon);
                     }
                     setLocation(
-                        ((x - xMouse > 0) ? x - xMouse : 0), 
-                        ((y - yMouse > 0) ? y - yMouse : 0)
-                    ); 
+                        (Math.max(x - xMouse, 0)),
+                        (Math.max(y - yMouse, 0))
+                    );
                 }
             }
         });
@@ -212,24 +195,51 @@ public class WindowFrame extends JFrame {
                     resizer.setDragInsets(new Insets(5, 5, 5, 5));
                 }
 
-                titleLabel.setPreferredSize(new Dimension((resisable) ? (getWidth()-100) : (getWidth()-75), 25));
+                titleLabel.setPreferredSize(new Dimension((resisable) ? (getWidth()-105) : (getWidth()-85), 25));
+                p.add(icon);
                 p.add(titleLabel);
                 p.add(hide);
                 if(resisable) {
                     p.add(minMax);
                 }
+                p.add(Box.createHorizontalStrut(6));
                 p.add(close);
+                p.add(Box.createHorizontalStrut(2));
                 revalidate();
                 repaint();
             }
         });
 
+        p.add(icon);
         p.add(titleLabel);
         p.add(hide);
         if(resisable) {
             p.add(minMax);
         }
+        p.add(Box.createHorizontalStrut(6));
         p.add(close);
+        p.add(Box.createHorizontalStrut(2));
+        return p;
+    }
+
+    private static JPanel createGradientPanel() {
+        JPanel p = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+                int w = getWidth(), h = getHeight();
+                Color color1 = new Color(0, 0, 150);
+                Color color2 = new Color(40, 80, 255);
+                GradientPaint gp = new GradientPaint((float) w /4, 0, color1, w, h, color2);
+                g2d.setPaint(gp);
+                g2d.fillRect(0, 0, w, h);
+            }
+        };
+
+        p.setPreferredSize(new Dimension(1, 27));
+        p.setLayout(new FlowLayout(FlowLayout.TRAILING, 0, 2));
         return p;
     }
 

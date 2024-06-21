@@ -40,7 +40,7 @@ public class AssetHandler {
         }
     }
 
-    protected ImageIcon resizeIcon(String path, Vector2 newSize) {
+    public ImageIcon resizeIcon(String path, Vector2 newSize) {
         ImageIcon base = new ImageIcon(loadImage(path));
         Image root = base.getImage();
         Image scaled = root.getScaledInstance(newSize.x, newSize.y, Image.SCALE_SMOOTH);

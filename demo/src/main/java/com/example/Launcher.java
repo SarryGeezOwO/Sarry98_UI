@@ -2,13 +2,9 @@ package com.example;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 
-import javax.swing.Box;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import com.example.components.*;
@@ -16,27 +12,25 @@ import com.example.components.*;
 public class Launcher extends WindowFrame{
 
     public Launcher() {
-        super("SarryG_98 Components", new Vector2(400, 150), FrameState.CLOSED, true);
+        super("SarryG_98 Components", new Vector2(500, 550), FrameState.CLOSED, true);
 
-        JLabel labelBtn = new JLabel("Hello world!", JLabel.CENTER);
-        labelBtn.setFont(textFont.deriveFont(Font.PLAIN, 18f));
-        labelBtn.setForeground(Color.BLACK);
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.setOpaque(false);
+        JLabel btnLabel = new JLabel("Buttons : ");
+        btnLabel.setFont(textFont.deriveFont(16f));
+        btnLabel.setForeground(Color.BLACK);
 
-        JPanel bot = new JPanel();
-        bot.setOpaque(false);
-        TextButton btn = new TextButton("Okay");
-        TextButton btn2 = new TextButton("Cancel");
+        TextButton btn = new TextButton("Default");
+        TextButton btnDisabled = new TextButton("Disabled");
+        btnDisabled.setEnabled(false);
+        ImageButton imgBtn = new ImageButton(scaledIcon("demo/src/main/resources/images/close.png", new Vector2(20, 20)));
 
-        JPanel p = new JPanel();
-        p.setLayout(new BorderLayout());
-        bot.add(btn);
-        bot.add(btn2);
-        p.setBorder(new EmptyBorder(20, 20, 20, 20));
-        p.setOpaque(false);
+        buttonsPanel.add(btnLabel);
+        buttonsPanel.add(btn);
+        buttonsPanel.add(btnDisabled);
+        buttonsPanel.add(imgBtn);
 
-        p.add(labelBtn, BorderLayout.CENTER);
-        p.add(bot, BorderLayout.SOUTH);
-        mainPanel.add(p, BorderLayout.CENTER);
+        mainPanel.add(buttonsPanel, BorderLayout.NORTH);
         setVisible(true);
     }
 
