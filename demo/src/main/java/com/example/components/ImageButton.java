@@ -5,6 +5,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
 
+import com.example.CustomButtonUI;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -14,6 +16,7 @@ public class ImageButton extends JButton {
         super();
         setIcon(icn);
         initUI();
+        setUI(new CustomButtonUI());
     }
 
     @Override

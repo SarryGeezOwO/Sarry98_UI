@@ -3,17 +3,16 @@ package com.example.components;
 import java.awt.*;
 import java.awt.event.*;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
+import javax.swing.*;
 import javax.swing.border.BevelBorder;
-
-import com.example.DottedBorder;
+import com.example.CustomButtonUI;
 
 public class TextButton extends JButton{
     
     public TextButton(String str) {
         super(str);
         initUI();
+        setUI(new CustomButtonUI());
     }
 
     @Override
@@ -70,10 +69,7 @@ public class TextButton extends JButton{
                             BorderFactory.createBevelBorder(BevelBorder.LOWERED, accentlight, shadow),
                             BorderFactory.createBevelBorder(BevelBorder.LOWERED, highlight, accentShadow)
                         ),
-                        BorderFactory.createCompoundBorder(
-                            DottedBorder.createDottedBorder(Color.BLACK),
-                            BorderFactory.createEmptyBorder(0, 18, 0, 18)
-                        )
+                        BorderFactory.createEmptyBorder(2, 20, 2, 20)
                     ));
                 }
             }
