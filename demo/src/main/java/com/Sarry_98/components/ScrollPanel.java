@@ -1,6 +1,6 @@
-package com.example.components;
+package com.Sarry_98.components;
 
-import com.example.OldScrollbarUI;
+import com.Sarry_98.OldScrollbarUI;
 
 import javax.swing.*;
 import java.awt.*;

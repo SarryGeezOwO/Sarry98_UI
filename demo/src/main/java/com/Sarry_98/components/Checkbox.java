@@ -1,8 +1,8 @@
-package com.example.components;
+package com.Sarry_98.components;
 
-import com.example.AssetHandler;
-import com.example.CheckboxListener;
-import com.example.Vector2;
+import com.Sarry_98.AssetHandler;
+import com.Sarry_98.CheckboxListener;
+import com.Sarry_98.Vector2;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -18,14 +18,13 @@ public class Checkbox extends JPanel {
     private JButton btn;
 
     private ImageIcon checkIcon;
-    private ImageIcon checkIconDisabled;
     private String text;
     private CheckboxListener checkboxListener;
 
     public Checkbox(String text) {
         this.text = text;
         setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
-        setBorder(new EmptyBorder(5, 5, 5, 5));
+        setBorder(new EmptyBorder(2, 5, 2, 5));
         setOpaque(false);
         initUI();
 
@@ -51,7 +50,6 @@ public class Checkbox extends JPanel {
     private void initUI() {
         AssetHandler handler = new AssetHandler();
         checkIcon = handler.resizeIcon("/images/check_pixel.png", new Vector2(10, 10));
-        checkIconDisabled = handler.resizeIcon("/images/check_disabled_pixel.png", new Vector2(10, 10));
 
         btn = new JButton() {
             @Override
@@ -147,7 +145,7 @@ public class Checkbox extends JPanel {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
-        btn.setIcon((isSelected ? (isEnabled ?  checkIcon :  checkIconDisabled) : null));
+        btn.setIcon((isSelected ? checkIcon : null));
     }
 
     @Override

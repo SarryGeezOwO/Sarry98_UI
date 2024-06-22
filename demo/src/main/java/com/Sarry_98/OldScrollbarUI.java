@@ -1,6 +1,6 @@
-package com.example;
+package com.Sarry_98;
 
-import com.example.components.ImageButton;
+import com.Sarry_98.components.ImageButton;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;

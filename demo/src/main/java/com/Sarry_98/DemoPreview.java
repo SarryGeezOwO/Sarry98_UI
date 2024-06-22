@@ -1,17 +1,17 @@
-package com.example;
+package com.Sarry_98;
 
 import java.awt.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import com.example.components.*;
-import com.example.components.Checkbox;
-import com.example.components.Panel;
+import com.Sarry_98.components.*;
+import com.Sarry_98.components.Checkbox;
+import com.Sarry_98.components.Panel;
 
-public class Launcher extends WindowFrame{
+public class DemoPreview extends WindowFrame{
 
-    public Launcher() {
+    public DemoPreview() {
         super("SarryG_98 Components", new Vector2(945, 470), FrameState.CLOSED, true);
 
         // ================================================ Buttons Preview ========================================= //
@@ -72,15 +72,25 @@ public class Launcher extends WindowFrame{
         groupPaneListLabel.setFont(new Font("MS Sans Serif", Font.PLAIN, 16));
         groupPaneListLabel.setForeground(Color.BLACK);
 
-        GroupPanel groupPanel = new GroupPanel(new Vector2(200, 140), Panel.PanelType.Flow);
+        GroupPanel groupPanel = new GroupPanel(new Vector2(203, 145), Panel.PanelType.Flow);
         groupPanel.setLabel("GroupPanel 1");
-        GroupPanel groupPanel2 = new GroupPanel(new Vector2(170, 45));
+        GroupPanel groupPanel2 = new GroupPanel(new Vector2(170, 60), Panel.PanelType.BoxY);
 
-        TextButton sample = new TextButton("Hello world!");
-        sample.setPreferredSize(new Dimension(170, 25));
-        Checkbox box = new Checkbox("I am a checkbox!");
+        Checkbox sample = new Checkbox("show label");
+        sample.addCheckboxListener(new CheckboxListener() {
+            @Override
+            public void onSelect() {
+                groupPanel2.setLabel("Label");
+            }
 
-        JLabel text = new JLabel("...Checkbox selected!");
+            @Override
+            public void onDeselect() {
+                groupPanel2.setLabel("");
+            }
+        });
+        Checkbox box = new Checkbox("show content example");
+
+        JLabel text = new JLabel("...Checkbox selected!", JLabel.CENTER);
         text.setFont(textFont.deriveFont(14f));
         text.setForeground(Color.BLACK);
         box.addCheckboxListener(new CheckboxListener() {
@@ -99,13 +109,13 @@ public class Launcher extends WindowFrame{
             }
         });
 
-        groupPanel.add(box);
         groupPanel.add(sample);
-        groupPanel.add(Box.createRigidArea(new Dimension(200, 7)));
+        groupPanel.add(box);
+        groupPanel.add(Box.createRigidArea(new Dimension(200, 2)));
         groupPanel.add(groupPanel2);
 
         groupPaneList.add(groupPaneListLabel);
-        groupPaneList.add(Box.createRigidArea(new Dimension(4000, 10)));
+        groupPaneList.add(Box.createRigidArea(new Dimension(4000, 5)));
         groupPaneList.add(groupPanel);
         groupPaneList.add(Box.createRigidArea(new Dimension(4000, 10)));
 
@@ -135,6 +145,7 @@ public class Launcher extends WindowFrame{
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(Launcher::new);
+        SwingUtilities.invokeLater(DemoPreview::new);
+        // Nothing Happened bro...
     }
 }

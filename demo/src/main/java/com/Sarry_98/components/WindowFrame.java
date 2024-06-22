@@ -1,4 +1,4 @@
-package com.example.components;
+package com.Sarry_98.components;
 
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
@@ -10,9 +10,9 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
-import com.example.AssetHandler;
-import com.example.ComponentResizer;
-import com.example.Vector2;
+import com.Sarry_98.AssetHandler;
+import com.Sarry_98.ComponentResizer;
+import com.Sarry_98.Vector2;
 
 public class WindowFrame extends JFrame {
 
@@ -245,4 +245,19 @@ public class WindowFrame extends JFrame {
         return p;
     }
 
+    /**
+     * Appends all given components in the JPanel('MainPanel'), not directly into the frame itself
+     * <br><br>
+     *     Also note, that this might not work properly on Layouts with Constraints such as :<br>
+     *     # <b>BorderLayout</b><br>
+     *     # <b>GridbagLayout</b><br>
+     *
+     *
+     * @param components  all the components that is going to be added in the 'MainPanel'
+     */
+    public void addAll(Component ... components) {
+        for(Component c : components) {
+            mainPanel.add(c);
+        }
+    }
 }

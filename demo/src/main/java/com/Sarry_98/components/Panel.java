@@ -1,6 +1,6 @@
-package com.example.components;
+package com.Sarry_98.components;
 
-import com.example.Vector2;
+import com.Sarry_98.Vector2;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
