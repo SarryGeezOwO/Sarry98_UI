@@ -11,21 +11,22 @@ public class GroupPanel extends JPanel {
 
     private String label;
     public GroupPanel(Vector2 size) {
+        label = "";
         setPreferredSize(new Dimension(size.x, size.y));
         setLayout(new BorderLayout());
         initPanel();
-        label = "";
     }
     public GroupPanel(Vector2 size, String label) {
+        this.label = label;
         setPreferredSize(new Dimension(size.x, size.y));
         setLayout(new BorderLayout());
         initPanel();
-        this.label = label;
     }
 
 
 
     public GroupPanel(Vector2 size, Panel.PanelType type) {
+        label = "";
         setPreferredSize(new Dimension(size.x, size.y));
         switch (type) {
             case Flow -> setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
@@ -36,6 +37,7 @@ public class GroupPanel extends JPanel {
         initPanel();
     }
     public GroupPanel(Vector2 size, String label, Panel.PanelType type) {
+        this.label = label;
         setPreferredSize(new Dimension(size.x, size.y));
         switch (type) {
             case Flow -> setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
@@ -44,12 +46,12 @@ public class GroupPanel extends JPanel {
             case BoxY -> setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         }
         initPanel();
-        this.label = label;
     }
 
 
 
     public GroupPanel(Vector2 size, Panel.PanelType type, Vector2 gap) {
+        label = "";
         setPreferredSize(new Dimension(size.x, size.y));
         switch (type) {
             case Flow -> setLayout(new FlowLayout(FlowLayout.LEADING, gap.x, gap.y));
@@ -60,6 +62,7 @@ public class GroupPanel extends JPanel {
         initPanel();
     }
     public GroupPanel(Vector2 size, String label, Panel.PanelType type, Vector2 gap) {
+        this.label = label;
         setPreferredSize(new Dimension(size.x, size.y));
         switch (type) {
             case Flow -> setLayout(new FlowLayout(FlowLayout.LEADING, gap.x, gap.y));
@@ -68,7 +71,6 @@ public class GroupPanel extends JPanel {
             case BoxY -> setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         }
         initPanel();
-        this.label = label;
     }
 
 
@@ -94,8 +96,8 @@ public class GroupPanel extends JPanel {
                         new MultiColorBorder(shadow, shadow, highlight, highlight, 1),
                         new MultiColorBorder(highlight, highlight, shadow, shadow, 1)
                 ),
-                BorderFactory.createEmptyBorder(5, 5, 5, 5)
-        ), " " + label + " ");
+                BorderFactory.createEmptyBorder(0, 0, 0, 0)
+        ), (label.isEmpty() ? label : " " + label + " "));
         border.setTitleFont(WindowFrame.textFont.deriveFont(13f));
         border.setTitleColor(Color.BLACK);
         setBorder(BorderFactory.createCompoundBorder(
@@ -103,5 +105,4 @@ public class GroupPanel extends JPanel {
                 BorderFactory.createEmptyBorder(0, 6, 0, 6)
         ));
     }
-
 }

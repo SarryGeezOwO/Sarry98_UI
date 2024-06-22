@@ -1,6 +1,7 @@
 package com.example.components;
 
 import com.example.AssetHandler;
+import com.example.CheckboxListener;
 import com.example.Vector2;
 
 import javax.swing.*;
@@ -14,16 +15,40 @@ public class Checkbox extends JPanel {
     public boolean isSelected = false;
     public boolean isEnabled = true;
 
-    private final JButton btn;
+    private JButton btn;
 
-    private final ImageIcon checkIcon;
-    private final ImageIcon checkIconDisabled;
+    private ImageIcon checkIcon;
+    private ImageIcon checkIconDisabled;
+    private String text;
+    private CheckboxListener checkboxListener;
 
-    public Checkbox(String str) {
+    public Checkbox(String text) {
+        this.text = text;
         setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
         setBorder(new EmptyBorder(5, 5, 5, 5));
         setOpaque(false);
+        initUI();
 
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                actionPerform();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if(isEnabled) btn.setBackground(Color.LIGHT_GRAY);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                btn.setBackground(Color.WHITE);
+            }
+        });
+    }
+
+    private void initUI() {
         AssetHandler handler = new AssetHandler();
         checkIcon = handler.resizeIcon("/images/check_pixel.png", new Vector2(10, 10));
         checkIconDisabled = handler.resizeIcon("/images/check_disabled_pixel.png", new Vector2(10, 10));
@@ -53,13 +78,18 @@ public class Checkbox extends JPanel {
         btn.setPreferredSize(new Dimension(18, 18));
 
         Color highlight = Color.WHITE;
+        Color accentlight = Color.LIGHT_GRAY;
         Color shadow = Color.BLACK;
+        Color accentShadow = new Color(111, 111, 111);
         btn.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createBevelBorder(BevelBorder.RAISED, shadow, highlight),
-                BorderFactory.createEmptyBorder(2, 2, 2, 2)
+                BorderFactory.createCompoundBorder(
+                        BorderFactory.createBevelBorder(BevelBorder.RAISED, accentShadow, highlight),
+                        BorderFactory.createBevelBorder(BevelBorder.RAISED, shadow, accentlight)
+                ),
+                BorderFactory.createEmptyBorder(3, 3, 3, 3)
         ));
 
-        JLabel label = new JLabel(str) {
+        JLabel label = new JLabel(text) {
             @Override
             public void paint(Graphics g) {
                 if (!isEnabled) {
@@ -80,26 +110,8 @@ public class Checkbox extends JPanel {
                 super.paint(g);
             }
         };
-        label.setFont(WindowFrame.textFont.deriveFont(Font.PLAIN, 15f));
+        label.setFont(WindowFrame.textFont.deriveFont(Font.PLAIN, 14f));
         label.setForeground(Color.BLACK);
-
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                actionPerform();
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                if(isEnabled) btn.setBackground(Color.LIGHT_GRAY);
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                btn.setBackground(Color.WHITE);
-            }
-        });
 
         add(btn);
         add(Box.createRigidArea(new Dimension(5, 5)));
@@ -107,9 +119,30 @@ public class Checkbox extends JPanel {
     }
 
     private void actionPerform() {
-        if(isEnabled) {
+        if(isEnabled)
             setSelected(!isSelected);
-        }
+
+        if(checkboxListener != null)
+            checkboxPerform();
+    }
+
+    private void refreshUI() {
+        removeAll();
+        initUI();
+    }
+
+    public void addCheckboxListener(CheckboxListener checkboxListener) {
+        this.checkboxListener = checkboxListener;
+    }
+
+    private void checkboxPerform() {
+        if(isSelected) checkboxListener.onSelect();
+        else checkboxListener.onDeselect();
+    }
+
+    public void setText(String text) {
+        this.text = text;
+        refreshUI();
     }
 
     public void setSelected(boolean selected) {

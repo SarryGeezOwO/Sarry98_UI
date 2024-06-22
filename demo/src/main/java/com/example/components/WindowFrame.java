@@ -182,7 +182,7 @@ public class WindowFrame extends JFrame {
         if(resisable) {
             resizer.registerComponent(this);
             resizer.setSnapSize(new Dimension(5, 5));
-            resizer.setMinimumSize(new Dimension(size.x, size.y));
+            resizer.setMinimumSize(new Dimension(size.x, size.y + 22));
         }
 
         addComponentListener(new ComponentAdapter() {
