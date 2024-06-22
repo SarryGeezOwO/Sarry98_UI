@@ -16,7 +16,7 @@ public class DemoPreview extends WindowFrame{
 
         // ================================================ Buttons Preview ========================================= //
         Panel buttonsPanel = new Panel(new Vector2(440, 200), new Vector2(10, 10), Panel.PanelType.Flow);
-        JLabel btnLabel = new JLabel("Buttons :  ");
+        JLabel btnLabel = new JLabel("Buttons : ( Text or Image ) ");
         btnLabel.setFont(new Font("MS Sans Serif", Font.PLAIN, 16));
         btnLabel.setForeground(Color.BLACK);
 
@@ -59,12 +59,28 @@ public class DemoPreview extends WindowFrame{
 
         // ================================================ Options button Preview ========================================= //
         Panel optionsPanel = new Panel(new Vector2(440, 200), new Vector2(10, 10), Panel.PanelType.Flow);
-        JLabel optionsLabel = new JLabel("Options :  ");
+        JLabel optionsLabel = new JLabel("Options : ( Vertical ------------ Horizontal )  ");
         optionsLabel.setFont(new Font("MS Sans Serif", Font.PLAIN, 16));
         optionsLabel.setForeground(Color.BLACK);
 
+        GroupPanel optionGroup1 = new GroupPanel(new Vector2(160, 125), "Food preference", Panel.PanelType.Flow);
+        OptionButtonMenu menu = new OptionButtonMenu(true, "Pizza", "Sushi", "Hotdog", "Donut");
+        menu.setSelectedOption(2);
+        menu.getOptions()[3].setEnabled(false);
+        menu.getOptions()[2].setEnabled(false);
+        optionGroup1.add(menu);
+
+        GroupPanel optionGroup2 = new GroupPanel(new Vector2(202, 60), "Confirmation", Panel.PanelType.Flow);
+        OptionButtonMenu menu2 = new OptionButtonMenu(false, "Yes", "No", "Maybe");
+        menu2.setSelectedOption(0);
+        menu2.getOptions()[2].setEnabled(false);
+        optionGroup2.add(menu2);
+
         optionsPanel.add(optionsLabel);
-        optionsLabel.add(Box.createRigidArea(new Dimension(4000, 10)));
+        optionsPanel.add(Box.createRigidArea(new Dimension(4000, 10)));
+        optionsPanel.add(optionGroup1);
+        optionsPanel.add(Box.createRigidArea(new Dimension(20, 10)));
+        optionsPanel.add(optionGroup2);
 
         // ================================================ Group Panel Preview ========================================= //
         Panel groupPaneList = new Panel(new Vector2(440, 200), new Vector2(10, 10), Panel.PanelType.Flow);
