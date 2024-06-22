@@ -33,16 +33,11 @@ public class ImageButton extends JButton {
         setContentAreaFilled(false);
 
 
-        Color highlight = Color.LIGHT_GRAY;
-        Color accentlight = Color.WHITE;
-        Color accentShadow = Color.DARK_GRAY;
+        Color highlight = Color.WHITE;
         Color shadow = Color.BLACK;
         setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createCompoundBorder(
-                BorderFactory.createBevelBorder(BevelBorder.RAISED, accentlight, shadow),
-                BorderFactory.createBevelBorder(BevelBorder.RAISED, highlight, accentShadow)
-            ),
-            BorderFactory.createEmptyBorder(2, 2, 2, 2)
+                BorderFactory.createBevelBorder(BevelBorder.RAISED, highlight, shadow),
+                BorderFactory.createEmptyBorder(2, 2, 2, 2)
         ));
 
         addMouseListener(new MouseAdapter() {
@@ -51,11 +46,8 @@ public class ImageButton extends JButton {
                 super.mousePressed(e);
                 if(isEnabled()) {
                     setBorder(BorderFactory.createCompoundBorder(
-                        BorderFactory.createCompoundBorder(
-                            BorderFactory.createBevelBorder(BevelBorder.LOWERED, accentlight, shadow),
-                            BorderFactory.createBevelBorder(BevelBorder.LOWERED, highlight, accentShadow)
-                        ),
-                        BorderFactory.createEmptyBorder(2, 2, 2, 2)
+                            BorderFactory.createBevelBorder(BevelBorder.LOWERED, highlight, shadow),
+                            BorderFactory.createEmptyBorder(2, 2, 2, 2)
                     ));
                 }
             }
@@ -64,11 +56,8 @@ public class ImageButton extends JButton {
                 super.mouseReleased(e);
                 if(isEnabled()) {
                     setBorder(BorderFactory.createCompoundBorder(
-                        BorderFactory.createCompoundBorder(
-                            BorderFactory.createBevelBorder(BevelBorder.RAISED, accentlight, shadow),
-                            BorderFactory.createBevelBorder(BevelBorder.RAISED, highlight, accentShadow)
-                        ),
-                        BorderFactory.createEmptyBorder(2, 2, 2, 2)
+                            BorderFactory.createBevelBorder(BevelBorder.RAISED, highlight, shadow),
+                            BorderFactory.createEmptyBorder(2, 2, 2, 2)
                     ));
                 }
             }

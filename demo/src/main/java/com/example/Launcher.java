@@ -58,19 +58,48 @@ public class Launcher extends WindowFrame{
         checkBoxPanel.add(Box.createRigidArea(new Dimension(4000, 10)));
 
         Panel optionsPanel = new Panel(new Vector2(440, 200), new Vector2(10, 10), Panel.PanelType.Flow);
-        JLabel optionsLabel = new JLabel("Checkbox :  ");
+        JLabel optionsLabel = new JLabel("Options :  ");
         optionsLabel.setFont(new Font("MS Sans Serif", Font.PLAIN, 16));
         optionsLabel.setForeground(Color.BLACK);
 
+        optionsPanel.add(optionsLabel);
+        optionsLabel.add(Box.createRigidArea(new Dimension(4000, 10)));
+
+        Panel groupPaneList = new Panel(new Vector2(440, 200), new Vector2(10, 10), Panel.PanelType.Flow);
+        JLabel groupPaneListLabel = new JLabel("Group Panel :  ");
+        groupPaneListLabel.setFont(new Font("MS Sans Serif", Font.PLAIN, 16));
+        groupPaneListLabel.setForeground(Color.BLACK);
+
+        GroupPanel groupPanel = new GroupPanel(new Vector2(200, 140), Panel.PanelType.Flow);
+        groupPanel.setLabel("GroupPanel 1");
+        GroupPanel groupPanel2 = new GroupPanel(new Vector2(170, 45));
+        groupPanel2.setLabel("GroupPanel 2");
+
+        TextButton sample = new TextButton("Hello world!");
+        sample.setPreferredSize(new Dimension(170, 25));
+        Checkbox box = new Checkbox("I am a checkbox!");
+
+        groupPanel.add(box);
+        groupPanel.add(sample);
+        groupPanel.add(Box.createRigidArea(new Dimension(200, 5)));
+        groupPanel.add(groupPanel2);
+
+        groupPaneList.add(groupPaneListLabel);
+        groupPaneList.add(Box.createRigidArea(new Dimension(4000, 10)));
+        groupPaneList.add(groupPanel);
+        groupPaneList.add(Box.createRigidArea(new Dimension(4000, 10)));
+
 
         JPanel container = new JPanel();
-        container.setPreferredSize(new Dimension(440, (200*3) + (5*4)));
+        int n = 4;
+        container.setPreferredSize(new Dimension(440, (200*n) + (5 * (n+1) + 3 )));
         container.setLayout(new FlowLayout(FlowLayout.LEADING, 5, 5));
         container.setOpaque(false);
 
         container.add(buttonsPanel);
         container.add(checkBoxPanel);
         container.add(optionsPanel);
+        container.add(groupPaneList);
 
         mainPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 

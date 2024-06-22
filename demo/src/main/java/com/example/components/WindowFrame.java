@@ -33,6 +33,7 @@ public class WindowFrame extends JFrame {
 
     public static String frameName;
     public static Font defaultFont;
+    public static Font dotGothic;
     public static Font textFont;
     public JPanel mainPanel;            // Add all components here
 
@@ -50,14 +51,15 @@ public class WindowFrame extends JFrame {
 
     private void initAssets() {
         AssetHandler handler = new AssetHandler();
-        closeIcon = handler.resizeIcon("/images/close.png", new Vector2(10, 10));
-        maximizedIcon = handler.resizeIcon("/images/maximized.png", new Vector2(10, 10));
-        minimizedIcon = handler.resizeIcon("/images/minimized.png", new Vector2(10, 10));
-        hideIcon = handler.resizeIcon("/images/hide.png", new Vector2(10, 10));
+        closeIcon = handler.resizeIcon("/images/close.png", new Vector2(12, 12));
+        maximizedIcon = handler.resizeIcon("/images/maximized.png", new Vector2(12, 12));
+        minimizedIcon = handler.resizeIcon("/images/minimized.png", new Vector2(12, 12));
+        hideIcon = handler.resizeIcon("/images/hide.png", new Vector2(12, 12));
         appIcon = handler.resizeIcon("/images/document.png", new Vector2(18, 18));
 
         defaultFont = handler.loadFont("/fonts/Modeseven.ttf");
         textFont = handler.loadFont("/fonts/Windows Regular.ttf");
+        dotGothic = handler.loadFont("/fonts/DotGothic.ttf");
     }   
 
     public WindowFrame(String title, String displayTitle, Vector2 size, FrameState state, boolean resizable, ImageIcon appIcon) {
@@ -179,7 +181,7 @@ public class WindowFrame extends JFrame {
         ComponentResizer resizer = new ComponentResizer();
         if(resisable) {
             resizer.registerComponent(this);
-            resizer.setSnapSize(new Dimension(10, 10));
+            resizer.setSnapSize(new Dimension(5, 5));
             resizer.setMinimumSize(new Dimension(size.x, size.y));
         }
 

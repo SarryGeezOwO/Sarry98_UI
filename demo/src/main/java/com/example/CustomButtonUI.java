@@ -12,7 +12,7 @@ public class CustomButtonUI extends BasicButtonUI {
     @Override
     protected void paintText(Graphics g, AbstractButton b, Rectangle textRect, String text) {
         if (pressed) {
-            textRect.translate(0, 2); // Move text down by 2 pixels
+            textRect.translate(0, 1); // Move text down by 1 pixel
         }
         super.paintText(g, b, textRect, text);
     }

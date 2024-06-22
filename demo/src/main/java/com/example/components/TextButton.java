@@ -26,14 +26,14 @@ public class TextButton extends JButton{
             FontMetrics fm = g.getFontMetrics();
             String text = getText();
             int textX = (getWidth() - fm.stringWidth(text)) / 2;
-            int textY = (getHeight() + fm.getAscent()) / 2 - 2;
+            int textY = (getHeight() + fm.getAscent()) / 2 - 4;
 
             // Draw shadow text
             g2d.setColor(Color.WHITE);
             g2d.drawString(text, textX + 1, textY + 1);
 
             // Draw original text
-            g2d.setColor(Color.GRAY);
+            g2d.setColor(new Color(120, 120, 120));
             g2d.drawString(text, textX, textY);
 
             g2d.dispose();
@@ -47,15 +47,10 @@ public class TextButton extends JButton{
         setContentAreaFilled(false);
         setFont(WindowFrame.textFont.deriveFont(Font.PLAIN, 14f));
 
-        Color highlight = Color.LIGHT_GRAY;
-        Color accentlight = Color.WHITE;
-        Color accentShadow = Color.DARK_GRAY;
+        Color highlight = Color.WHITE;
         Color shadow = Color.BLACK;
         setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createCompoundBorder(
-                BorderFactory.createBevelBorder(BevelBorder.RAISED, accentlight, shadow),
-                BorderFactory.createBevelBorder(BevelBorder.RAISED, highlight, accentShadow)
-            ),
+            BorderFactory.createBevelBorder(BevelBorder.RAISED, highlight, shadow),
             BorderFactory.createEmptyBorder(2, 20, 2, 20)
         ));
 
@@ -65,11 +60,8 @@ public class TextButton extends JButton{
                 super.mousePressed(e);
                 if(isEnabled()) {
                     setBorder(BorderFactory.createCompoundBorder(
-                        BorderFactory.createCompoundBorder(
-                            BorderFactory.createBevelBorder(BevelBorder.LOWERED, accentlight, shadow),
-                            BorderFactory.createBevelBorder(BevelBorder.LOWERED, highlight, accentShadow)
-                        ),
-                        BorderFactory.createEmptyBorder(2, 20, 2, 20)
+                            BorderFactory.createBevelBorder(BevelBorder.LOWERED, highlight, shadow),
+                            BorderFactory.createEmptyBorder(2, 20, 2, 20)
                     ));
                 }
             }
@@ -78,11 +70,8 @@ public class TextButton extends JButton{
                 super.mouseReleased(e);
                 if(isEnabled()) {
                     setBorder(BorderFactory.createCompoundBorder(
-                        BorderFactory.createCompoundBorder(
-                            BorderFactory.createBevelBorder(BevelBorder.RAISED, accentlight, shadow),
-                            BorderFactory.createBevelBorder(BevelBorder.RAISED, highlight, accentShadow)
-                        ),
-                        BorderFactory.createEmptyBorder(2, 20, 2, 20)
+                            BorderFactory.createBevelBorder(BevelBorder.RAISED, highlight, shadow),
+                            BorderFactory.createEmptyBorder(2, 20, 2, 20)
                     ));
                 }
             }

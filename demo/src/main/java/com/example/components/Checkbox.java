@@ -28,7 +28,16 @@ public class Checkbox extends JPanel {
         checkIcon = handler.resizeIcon("/images/check_pixel.png", new Vector2(10, 10));
         checkIconDisabled = handler.resizeIcon("/images/check_disabled_pixel.png", new Vector2(10, 10));
 
-        btn = new JButton();
+        btn = new JButton() {
+            @Override
+            public void paint(Graphics g) {
+                g.setColor(getBackground());
+                g.fillRect(0, 0, getWidth(), getHeight());
+                super.paint(g);
+            }
+        };
+        btn.setContentAreaFilled(false);
+        btn.setBackground(Color.WHITE);
         btn.addActionListener(e -> actionPerform());
         btn.addMouseListener(new MouseAdapter() {
             @Override
@@ -43,43 +52,35 @@ public class Checkbox extends JPanel {
         });
         btn.setPreferredSize(new Dimension(18, 18));
 
-        Color highlight = Color.LIGHT_GRAY;
-        Color accentlight = Color.WHITE;
-        Color accentShadow = Color.GRAY;
+        Color highlight = Color.WHITE;
         Color shadow = Color.BLACK;
         btn.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createCompoundBorder(
-                        BorderFactory.createBevelBorder(BevelBorder.RAISED, accentShadow, accentlight),
-                        BorderFactory.createBevelBorder(BevelBorder.RAISED, shadow, highlight)
-                ),
+                BorderFactory.createBevelBorder(BevelBorder.RAISED, shadow, highlight),
                 BorderFactory.createEmptyBorder(2, 2, 2, 2)
         ));
 
         JLabel label = new JLabel(str) {
             @Override
             public void paint(Graphics g) {
-                super.paint(g);
                 if (!isEnabled) {
                     Graphics2D g2d = (Graphics2D) g.create();
                     FontMetrics fm = g2d.getFontMetrics();
                     String text = getText();
                     g2d.setFont(getFont());
                     int textX = (getWidth() - fm.stringWidth(text)) / 2;
-                    int textY = (getHeight() + fm.getAscent()) / 2 - 2;
+                    int textY = (getHeight() + fm.getAscent()) / 2 - 4;
 
                     // Draw shadow text
                     g2d.setColor(new Color(240, 240, 240));
-                    g2d.drawString(text, textX + 1, textY - 1);
-
-                    // Draw original text
-                    g2d.setColor(new Color(100, 100, 100));
-                    g2d.drawString(text, textX, textY);
+                    g2d.drawString(text, textX + 2, textY + 2);
 
                     g2d.dispose();
+                    setForeground(new Color(120, 120, 120));
                 }
+                super.paint(g);
             }
         };
-        label.setFont(WindowFrame.textFont.deriveFont(Font.PLAIN, 14f));
+        label.setFont(WindowFrame.textFont.deriveFont(Font.PLAIN, 15f));
         label.setForeground(Color.BLACK);
 
         addMouseListener(new MouseAdapter() {
