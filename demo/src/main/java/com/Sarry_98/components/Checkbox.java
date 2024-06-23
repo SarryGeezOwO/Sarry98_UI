@@ -18,6 +18,7 @@ public class Checkbox extends JPanel {
     private JButton btn;
 
     private ImageIcon checkIcon;
+    private ImageIcon checkDisabledIcon;
     private String text;
     private CheckboxListener checkboxListener;
 
@@ -42,14 +43,15 @@ public class Checkbox extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                btn.setBackground(Color.WHITE);
+                if(isEnabled) btn.setBackground(Color.WHITE);
             }
         });
     }
 
     private void initUI() {
         AssetHandler handler = new AssetHandler();
-        checkIcon = handler.resizeIcon("/images/check_pixel.png", new Vector2(10, 10));
+        checkIcon = handler.resizeIcon("/images/check_pixel.png", new Vector2(9, 9));
+        checkDisabledIcon = handler.resizeIcon("/images/check_disabled_pixel.png", new Vector2(8, 8));
 
         btn = new JButton() {
             @Override
@@ -70,7 +72,7 @@ public class Checkbox extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                btn.setBackground(Color.WHITE);
+                if(isEnabled) btn.setBackground(Color.WHITE);
             }
         });
         btn.setPreferredSize(new Dimension(18, 18));
@@ -145,7 +147,7 @@ public class Checkbox extends JPanel {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
-        btn.setIcon((isSelected ? checkIcon : null));
+        btn.setIcon((isSelected ? (isEnabled ? checkIcon : checkDisabledIcon) : null));
     }
 
     @Override
@@ -153,5 +155,6 @@ public class Checkbox extends JPanel {
         super.setEnabled(enabled);
         btn.setEnabled(enabled);
         isEnabled = enabled;
+        if(!isEnabled) btn.setBackground(new Color(140, 140, 140));
     }
 }

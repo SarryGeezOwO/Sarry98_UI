@@ -2,6 +2,7 @@ package com.Sarry_98.components;
 
 import com.Sarry_98.AssetHandler;
 import com.Sarry_98.CheckboxListener;
+import com.Sarry_98.DottedBorder;
 import com.Sarry_98.Vector2;
 
 import javax.swing.*;
@@ -21,6 +22,7 @@ public class OptionButton extends JPanel {
     private final ImageIcon pressedCheckedIcon;
 
     private JButton btn;
+    private JLabel label;
     private String text;
     private CheckboxListener checkboxListener;
 
@@ -89,7 +91,7 @@ public class OptionButton extends JPanel {
         btn.setPreferredSize(new Dimension(18, 18));
         btn.setIcon(normalIcon);
 
-        JLabel label = new JLabel(text) {
+        label = new JLabel(text) {
             @Override
             public void paint(Graphics g) {
                 if (!isEnabled) {

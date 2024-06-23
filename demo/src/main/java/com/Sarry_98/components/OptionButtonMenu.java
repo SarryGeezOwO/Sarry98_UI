@@ -1,14 +1,15 @@
 package com.Sarry_98.components;
 
 import com.Sarry_98.CheckboxListener;
+import com.Sarry_98.OptionMenuListener;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class OptionButtonMenu extends JPanel {
 
     private OptionButton[] options;
     private OptionButton selectedOption;
+    private OptionMenuListener listener;
 
     public OptionButtonMenu(boolean isVertical, String ... options) {
         setOptions(options);
@@ -32,6 +33,17 @@ public class OptionButtonMenu extends JPanel {
             });
             add(btn);
         }
+    }
+
+    public void addOptionMenuListener(OptionMenuListener listener) {
+        this.listener = listener;
+    }
+
+    private void optionListenerAction() {
+        if(listener == null)
+            return;
+
+        listener.onSelectionChange(getSelectedOption());
     }
 
     public void setOptions(String[] ops) {
@@ -58,8 +70,9 @@ public class OptionButtonMenu extends JPanel {
         for(OptionButton btn : options) {
 
             if(btn.getText().equals(selectedOption)){
-                btn.setSelected(true);
                 this.selectedOption = btn;
+                btn.setSelected(true);
+                optionListenerAction();
             }else btn.setSelected(false);
 
         }
@@ -69,6 +82,7 @@ public class OptionButtonMenu extends JPanel {
             if(i == selectedOption) {
                 this.selectedOption = getOptions()[i];
                 getOptions()[i].setSelected(true);
+                optionListenerAction();
             }else getOptions()[i].setSelected(false);
         }
     }

@@ -32,8 +32,8 @@ public class ScrollPanel extends JScrollPane {
             setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         }
 
-        verticalScrollBar.setUnitIncrement(20); // Increase vertical scroll speed
-        horizontalScrollBar.setUnitIncrement(20); // Increase horizontal scroll speed
+        verticalScrollBar.setUnitIncrement(5); // Increase vertical scroll speed
+        horizontalScrollBar.setUnitIncrement(5); // Increase horizontal scroll speed
     }
 
 }

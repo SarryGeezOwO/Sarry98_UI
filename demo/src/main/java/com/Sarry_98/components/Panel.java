@@ -50,7 +50,7 @@ public class Panel extends JPanel {
 
         Color highlight = Color.LIGHT_GRAY;
         Color accentlight = Color.WHITE;
-        Color accentShadow = Color.DARK_GRAY;
+        Color accentShadow = new Color(90, 90, 90);
         Color shadow = Color.BLACK;
         setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createCompoundBorder(
