@@ -1,5 +1,6 @@
 ### Preview ( Work In Progress ) :
-![image](https://github.com/SarryGeezOwO/Sarry98_UI/assets/150913876/a2e6deed-e7d3-4551-9898-93eecc4578e6)
+![image](https://github.com/SarryGeezOwO/Sarry98_UI/assets/150913876/c1d9340c-a88b-43ee-94ff-5d90e36b1e24)
+
 
 ### Inspired by [98.css](https://github.com/jdan/98.css)
 
